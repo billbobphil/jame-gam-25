@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+namespace Player
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Shooter : MonoBehaviour
     {
-        
-    }
+        public void FixedUpdate()
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Debug.Log("Spacebar pressed");
+            }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void ShootClaw()
+        {
+            
+        }
     }
 }
