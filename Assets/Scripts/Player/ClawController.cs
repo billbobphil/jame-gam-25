@@ -35,6 +35,7 @@ namespace Player
                 allowRotatorMovement = false;
                 _canCreateClaw = false;
                 GameObject clawHand = Instantiate(clawHandPrefab, claw.transform.position, claw.transform.rotation);
+                clawHand.transform.localScale = claw.transform.localScale * 1.5f;
                 clawHand.GetComponent<ClawHandMovementController>().manager = this;
             }
         }

@@ -11,9 +11,10 @@ namespace Utilities
     {
         public UiRegistration uiRegistration;
         public Timer timer;
+        public CollectionModifierController collectionModifierController;
 
         public List<GameObject> ingredientPrefabs;
-        private List<(bool isCollected, GameObject ingredient)> _ingredients;
+        public List<(bool isCollected, GameObject ingredient, CollectionModifierController.IngredientCollectionModifiers modifier)> Ingredients;
 
         private bool _hasWonGame;
         private bool _hasLostGame;
@@ -64,7 +65,7 @@ namespace Utilities
         {
             if (_hasWonGame || _hasLostGame) return;
             
-            if (_ingredients.All(item => item.isCollected))
+            if (Ingredients.All(item => item.isCollected))
             {
                 Debug.Log("Trigger Win State All Ingredients Used");
                 _hasWonGame = true;
@@ -73,23 +74,27 @@ namespace Utilities
 
         private void WinMiniGame(GameObject ingredient)
         {
-            int i = _ingredients.IndexOf((false, ingredient));
-            _ingredients[i].ingredient.GetComponent<IngredientController>().CollectIngredient();
-            _ingredients[i] = (true, ingredient);
-
-            foreach ((bool isCollected, GameObject ingredient) item in _ingredients)
-            {
-                Rotator rotator = item.ingredient.GetComponent<Rotator>();
-                rotator.degreesToMove += .33f;
-            }
+            int i = Ingredients.FindIndex(item => item.ingredient == ingredient);
+            Ingredients[i].ingredient.GetComponent<IngredientController>().CollectIngredient();
+            collectionModifierController.ApplyModifier(Ingredients[i].modifier);
+            Ingredients[i] = (true, ingredient, Ingredients[i].modifier);
         }
 
         private void SpawnIngredients()
         {
-            _ingredients = new List<(bool, GameObject)>();
+            Ingredients = new List<(bool, GameObject, CollectionModifierController.IngredientCollectionModifiers)>();
 
             List<int> orbitDistanceCopy = _orbitDistances.ToList();
             List<float> orbitSpeedCopy = _orbitSpeeds.ToList();
+            List<CollectionModifierController.IngredientCollectionModifiers> availableCollectionModifiers = new()
+            {
+                CollectionModifierController.IngredientCollectionModifiers.SizeUp,
+                CollectionModifierController.IngredientCollectionModifiers.SizeDown,
+                CollectionModifierController.IngredientCollectionModifiers.SpeedUp,
+                CollectionModifierController.IngredientCollectionModifiers.SpeedDown,
+                CollectionModifierController.IngredientCollectionModifiers.OrbitSpeedDown,
+                CollectionModifierController.IngredientCollectionModifiers.OrbitSpeedUp
+            };
 
             foreach (GameObject prefab in ingredientPrefabs)
             {
@@ -103,20 +108,23 @@ namespace Utilities
                 int randomOrbitDistanceIndex = UnityEngine.Random.Range(0, orbitDistanceCopy.Count);
                 int randomSpeedIndex = UnityEngine.Random.Range(0, orbitSpeedCopy.Count);
                 int randomOrbitDirection = UnityEngine.Random.Range(0, 2);
+                int randomCollectionModifierIndex = UnityEngine.Random.Range(0, availableCollectionModifiers.Count);
                 
                 ingredientMovementController.rotator.degreesToMove = orbitSpeedCopy[randomSpeedIndex];
                 ingredientMovementController.rotator.distanceBetweenOrbiterAndOrbitee = orbitDistanceCopy[randomOrbitDistanceIndex];
                 ingredientMovementController.direction = randomOrbitDirection == 0 ? Rotator.Direction.Clockwise : Rotator.Direction.CounterClockwise;
-                _ingredients.Add((false, ingredient));
+                Ingredients.Add((false, ingredient, availableCollectionModifiers[randomCollectionModifierIndex]));
                 
                 orbitDistanceCopy.RemoveAt(randomOrbitDistanceIndex);
                 orbitSpeedCopy.RemoveAt(randomSpeedIndex);
+                availableCollectionModifiers.RemoveAt(randomCollectionModifierIndex);
+                collectionModifierController.ConfigureOrbitStartUpSpeeds();
             }
         }
         
         public int GetNumberOfIngredientsCollected()
         {
-            return _ingredients.Count(item => item.isCollected);
+            return Ingredients.Count(item => item.isCollected);
         }
     }
 }

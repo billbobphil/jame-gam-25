@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 127152527}
   - component: {fileID: 127152529}
   - component: {fileID: 127152528}
+  - component: {fileID: 127152530}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -285,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiRegistration: {fileID: 127152525}
   timer: {fileID: 127152529}
+  collectionModifierController: {fileID: 127152530}
   ingredientPrefabs:
   - {fileID: 7885241552706594208, guid: f75aeb7e7d0cf854d8807146943969a0, type: 3}
   - {fileID: 879621843465122098, guid: 6f6f66eb53e9d6e42beca51c12abd1a4, type: 3}
@@ -308,6 +310,27 @@ MonoBehaviour:
   isTimerRunning: 1
   minutesRemaining: 0
   secondsRemaining: 0
+--- !u!114 &127152530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127152524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc74ed726b55ed4591e5505cc71809b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  claw: {fileID: 604089021}
+  clawController: {fileID: 1134344476}
+  gameManager: {fileID: 127152528}
+  clawHandPrefab: {fileID: 5510298092413732110, guid: 233579e806969844e94fb7faf3948383, type: 3}
+--- !u!1 &604089021 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 817633530387543147, guid: a23410764ef2eac46b3b935102cee9c7, type: 3}
+  m_PrefabInstance: {fileID: 817633529783590614}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &834802998
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +668,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069580266}
   m_CullTransparentMesh: 1
+--- !u!114 &1134344476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 817633530815162314, guid: a23410764ef2eac46b3b935102cee9c7, type: 3}
+  m_PrefabInstance: {fileID: 817633529783590614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875e0b4baffb17e4585f158c29eba13d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1522740237
 GameObject:
   m_ObjectHideFlags: 0
