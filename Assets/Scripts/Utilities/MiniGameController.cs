@@ -43,7 +43,9 @@ namespace Utilities
         private bool _allowInput;
         private int _currentArrowIndex;
         private GameObject _ingredientBeingPlayedFor;
-        
+        public GameManager gameManager;
+        public int baseArrowCount = 3;
+
         public delegate void EndMiniGame(GameObject ingredient);
         public static event EndMiniGame OnEndMiniGame;
         
@@ -128,8 +130,7 @@ namespace Utilities
 
         private void GenerateSequence()
         {
-            //TODO: make dynamic based on number completed
-            int sequenceLength = 4;
+            int sequenceLength = baseArrowCount + gameManager.GetNumberOfIngredientsCollected();
             const int baseXPosition = -390;
             const int arrowWidth = 101;
             _sequence = new List<(ArrowDirections direction, GameObject arrow)>();

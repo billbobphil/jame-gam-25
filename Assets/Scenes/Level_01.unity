@@ -269,6 +269,8 @@ MonoBehaviour:
   downArrowPrefab: {fileID: 1076795253606469468, guid: 147687d21cc0be04cb7437280a143063, type: 3}
   leftArrowPrefab: {fileID: 2510964409843791002, guid: a7deb69bf22f21147ba4aa3d3392ec33, type: 3}
   rightArrowPrefab: {fileID: 3951720880976873287, guid: 7509168cdeffcb04aaddf9b7db891413, type: 3}
+  gameManager: {fileID: 127152528}
+  baseArrowCount: 3
 --- !u!114 &127152528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +288,10 @@ MonoBehaviour:
   ingredientPrefabs:
   - {fileID: 7885241552706594208, guid: f75aeb7e7d0cf854d8807146943969a0, type: 3}
   - {fileID: 879621843465122098, guid: 6f6f66eb53e9d6e42beca51c12abd1a4, type: 3}
+  - {fileID: 9130211199577208044, guid: 62b1e5cf8e70c044f981271f2cf9d252, type: 3}
+  - {fileID: 6920404032884176309, guid: 6de9b5c65cb5aa44ea69280ca8f37418, type: 3}
+  - {fileID: 1846810537845353288, guid: ba957c16bb6a07047b9ca9d6e3da3b58, type: 3}
+  - {fileID: 3358539531895075003, guid: 019bae3d71d4bcc48915b5bbb7921a75, type: 3}
 --- !u!114 &127152529
 MonoBehaviour:
   m_ObjectHideFlags: 0

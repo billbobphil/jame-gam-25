@@ -74,9 +74,14 @@ namespace Utilities
         private void WinMiniGame(GameObject ingredient)
         {
             int i = _ingredients.IndexOf((false, ingredient));
-            Debug.Log("Index of ingredient: " + i);
             _ingredients[i].ingredient.GetComponent<IngredientController>().CollectIngredient();
             _ingredients[i] = (true, ingredient);
+
+            foreach ((bool isCollected, GameObject ingredient) item in _ingredients)
+            {
+                Rotator rotator = item.ingredient.GetComponent<Rotator>();
+                rotator.degreesToMove += .33f;
+            }
         }
 
         private void SpawnIngredients()
@@ -93,18 +98,25 @@ namespace Utilities
                 int randomY = UnityEngine.Random.Range(-10, 10);
                 
                 GameObject ingredient = Instantiate(prefab, new Vector3(randomX, randomY, 0), new Quaternion(0, 0, 0, 0));
-                Rotator ingredientRotator = ingredient.GetComponent<Rotator>();
+                IngredientMovementController ingredientMovementController = ingredient.GetComponent<IngredientMovementController>();
                 
                 int randomOrbitDistanceIndex = UnityEngine.Random.Range(0, orbitDistanceCopy.Count);
                 int randomSpeedIndex = UnityEngine.Random.Range(0, orbitSpeedCopy.Count);
+                int randomOrbitDirection = UnityEngine.Random.Range(0, 2);
                 
-                ingredientRotator.degreesToMove = orbitSpeedCopy[randomSpeedIndex];
-                ingredientRotator.distanceBetweenOrbiterAndOrbitee = orbitDistanceCopy[randomOrbitDistanceIndex];
+                ingredientMovementController.rotator.degreesToMove = orbitSpeedCopy[randomSpeedIndex];
+                ingredientMovementController.rotator.distanceBetweenOrbiterAndOrbitee = orbitDistanceCopy[randomOrbitDistanceIndex];
+                ingredientMovementController.direction = randomOrbitDirection == 0 ? Rotator.Direction.Clockwise : Rotator.Direction.CounterClockwise;
                 _ingredients.Add((false, ingredient));
                 
                 orbitDistanceCopy.RemoveAt(randomOrbitDistanceIndex);
                 orbitSpeedCopy.RemoveAt(randomSpeedIndex);
             }
+        }
+        
+        public int GetNumberOfIngredientsCollected()
+        {
+            return _ingredients.Count(item => item.isCollected);
         }
     }
 }
