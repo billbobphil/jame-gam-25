@@ -42,6 +42,10 @@ namespace Utilities
         private List<(ArrowDirections direction, GameObject arrow)> _sequence;
         private bool _allowInput;
         private int _currentArrowIndex;
+        private GameObject _ingredientBeingPlayedFor;
+        
+        public delegate void EndMiniGame(GameObject ingredient);
+        public static event EndMiniGame OnEndMiniGame;
         
         private void OnEnable()
         {
@@ -53,8 +57,9 @@ namespace Utilities
             IngredientMiniGameEventNotifier.OnStartMiniGame -= StartMiniGame;
         }
 
-        private void StartMiniGame()
+        private void StartMiniGame(GameObject ingredient)
         {
+            _ingredientBeingPlayedFor = ingredient;
             uiRegistration.miniGameCanvas.SetActive(true);
             GenerateSequence();
             _currentArrowIndex = 0;
@@ -68,7 +73,7 @@ namespace Utilities
             if (!Input.anyKeyDown) return;
             
             KeyCode[] requiredKeyCodes = _arrowKeyCodes[_sequence[_currentArrowIndex].direction];
-            bool correctInput = requiredKeyCodes.Any(keyCode => Input.GetKeyDown(keyCode));
+            bool correctInput = requiredKeyCodes.Any(Input.GetKeyDown);
 
             if (correctInput)
             {
@@ -117,6 +122,7 @@ namespace Utilities
         private void ProcessGameWin()
         {
             uiRegistration.miniGameCanvas.SetActive(false);
+            OnEndMiniGame?.Invoke(_ingredientBeingPlayedFor);
             ResetMiniGame();
         }
 
@@ -156,6 +162,7 @@ namespace Utilities
                 Destroy(arrow);
             }
             _sequence = null;
+            _ingredientBeingPlayedFor = null;
         }
     }
 }

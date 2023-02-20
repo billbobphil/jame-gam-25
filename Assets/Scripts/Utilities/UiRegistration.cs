@@ -6,6 +6,8 @@ namespace Utilities
     {
         public GameObject miniGameCanvas;
         public GameObject sequencePanel;
+        public GameObject gameCanvas;
+        public GameObject timerText;
         
         void Start()
         {

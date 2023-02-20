@@ -1,6 +1,7 @@
 using System;
 using Ingredients;
 using UnityEngine;
+using Utilities;
 
 namespace Player
 {
@@ -15,18 +16,24 @@ namespace Player
         private void OnEnable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame += Pause;
+            MiniGameController.OnEndMiniGame += Resume;
         }
 
         private void OnDisable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame -= Pause;
-
+            MiniGameController.OnEndMiniGame -= Resume;
         }
         
-        private void Pause()
+        private void Pause(GameObject ingredient)
         {
             _isPaused = true;
         } 
+        
+        private void Resume(GameObject ingredient)
+        {
+            _isPaused = false;
+        }
         
         private void Start()
         {

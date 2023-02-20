@@ -17,12 +17,13 @@ namespace Player
         private void OnEnable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame += Pause;
+            MiniGameController.OnEndMiniGame += Resume;
         }
 
         private void OnDisable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame -= Pause;
-
+            MiniGameController.OnEndMiniGame -= Resume;
         }
 
         private void Update()
@@ -59,9 +60,14 @@ namespace Player
             allowRotatorMovement = true;
         }
 
-        private void Pause()
+        private void Pause(GameObject ingredient)
         {
             _isPaused = true;
-        } 
+        }
+
+        private void Resume(GameObject ingredient)
+        {
+            _isPaused = false;
+        }
     }
 }
