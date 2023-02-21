@@ -41,8 +41,8 @@ namespace Utilities
             timer.startTime = Difficulty.GetDifficultyLevel() switch
             {
                 Difficulty.DifficultyLevel.Easy => 60,
-                Difficulty.DifficultyLevel.Normal => 45,
-                Difficulty.DifficultyLevel.Hard => 30,
+                Difficulty.DifficultyLevel.Normal => 40,
+                Difficulty.DifficultyLevel.Hard => 25,
                 _ => timer.startTime
             };
         }
