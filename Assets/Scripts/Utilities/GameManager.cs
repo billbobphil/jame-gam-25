@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Ingredients;
@@ -78,6 +79,38 @@ namespace Utilities
             Ingredients[i].ingredient.GetComponent<IngredientController>().CollectIngredient();
             collectionModifierController.ApplyModifier(Ingredients[i].modifier);
             Ingredients[i] = (true, ingredient, Ingredients[i].modifier);
+            StartCoroutine(UpdateTextForGatheredIngredients(Ingredients[i].ingredient.GetComponent<IngredientController>().ingredientType, Ingredients[i].modifier));
+        }
+
+        private IEnumerator UpdateTextForGatheredIngredients(IngredientController.IngredientType ingredientType, CollectionModifierController.IngredientCollectionModifiers modifier)
+        {
+            string ingredientTypeText = ingredientType switch
+            {
+                IngredientController.IngredientType.Chicken => "Chicken collected!",
+                IngredientController.IngredientType.Butter => "Butter collected!",
+                IngredientController.IngredientType.Tomato => "Tomato collected!",
+                IngredientController.IngredientType.Garlic => "Garlic collected!",
+                IngredientController.IngredientType.Onion => "Onion collected!",
+                IngredientController.IngredientType.Cream => "Cream collected!",
+                _ => ""
+            };
+
+            string modifierText = modifier switch
+            {
+                CollectionModifierController.IngredientCollectionModifiers.SizeUp => "Claw size up!",
+                CollectionModifierController.IngredientCollectionModifiers.SizeDown => "Claw size down!",
+                CollectionModifierController.IngredientCollectionModifiers.SpeedUp => "Claw speed up!",
+                CollectionModifierController.IngredientCollectionModifiers.SpeedDown => "Claw speed down!",
+                CollectionModifierController.IngredientCollectionModifiers.OrbitSpeedDown => "Ingredient orbit speed down!",
+                CollectionModifierController.IngredientCollectionModifiers.OrbitSpeedUp => "Ingredient orbit speed up!",
+                _ => ""
+            };
+
+            uiRegistration.modifierText.text = modifierText;
+            uiRegistration.collectedIngredientText.text = ingredientTypeText;
+            uiRegistration.collectionAndModifierPanel.SetActive(true);
+            yield return new WaitForSecondsRealtime(3);
+            uiRegistration.collectionAndModifierPanel.SetActive(false);
         }
 
         private void SpawnIngredients()

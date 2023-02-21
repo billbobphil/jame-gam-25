@@ -13,6 +13,7 @@ namespace Player
         public GameObject clawHandPrefab;
         private bool _canCreateClaw = true;
         private bool _isPaused = false;
+        public CollectionModifierController collectionModifierController;
 
         private void OnEnable()
         {

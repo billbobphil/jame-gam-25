@@ -75,5 +75,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tomato
       objectReference: {fileID: 0}
+    - target: {fileID: 6769458372924980811, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
+      propertyPath: ingredientType
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}

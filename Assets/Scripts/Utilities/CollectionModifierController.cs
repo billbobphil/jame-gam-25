@@ -8,13 +8,13 @@ namespace Utilities
     public class CollectionModifierController : MonoBehaviour
     {
         public GameObject claw;
-        public ClawController clawController;
         public GameManager gameManager;
         public GameObject clawHandPrefab;
 
         private float _startingClawSize;
         private float _startingClawHandSpeed;
         private List<double> _startingOrbitSpeeds;
+        public float currentClawHandSpeed;
         
         public enum IngredientCollectionModifiers
         {
@@ -29,7 +29,8 @@ namespace Utilities
         public void Start()
         {
             _startingClawSize = claw.transform.localScale.x;
-            _startingClawHandSpeed = clawHandPrefab.GetComponent<ClawHandMovementController>().speed;
+            _startingClawHandSpeed = clawHandPrefab.GetComponent<ClawHandMovementController>().baseSpeed;
+            currentClawHandSpeed = _startingClawHandSpeed;
         }
 
         public void ConfigureOrbitStartUpSpeeds()
@@ -54,10 +55,10 @@ namespace Utilities
                     claw.transform.localScale = new Vector3(claw.transform.localScale.x * 0.65f, claw.transform.localScale.y * 0.65f, claw.transform.localScale.z);
                     break;
                 case IngredientCollectionModifiers.SpeedUp:
-                    clawHandPrefab.GetComponent<ClawHandMovementController>().speed += 1;
+                    currentClawHandSpeed += 1;
                     break;
                 case IngredientCollectionModifiers.SpeedDown:
-                    clawHandPrefab.GetComponent<ClawHandMovementController>().speed -= .5f;
+                    currentClawHandSpeed -= .5f;
                     break;
                 case IngredientCollectionModifiers.OrbitSpeedUp:
                     foreach ((bool isCollected, GameObject ingredient, IngredientCollectionModifiers modifier) item in gameManager.Ingredients)
@@ -77,7 +78,7 @@ namespace Utilities
         private void Reset()
         {
             claw.transform.localScale = new Vector3(_startingClawSize, _startingClawSize, claw.transform.localScale.z);
-            clawHandPrefab.GetComponent<ClawHandMovementController>().speed = _startingClawHandSpeed;
+            currentClawHandSpeed = _startingClawHandSpeed;
             
             for(int i = 0; i < gameManager.Ingredients.Count; i++)
             {

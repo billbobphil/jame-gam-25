@@ -10,9 +10,9 @@ namespace Player
         public ClawController manager;
         private float _xDirection;
         private float _yDirection;
-        public float speed = 1;
+        public float baseSpeed = 1;
         private bool _isPaused = false;
-        
+
         private void OnEnable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame += Pause;
@@ -45,9 +45,11 @@ namespace Player
         private void FixedUpdate()
         {
             if(_isPaused) return;
+
+            float modifiedSpeed = manager.collectionModifierController.currentClawHandSpeed;
             
             Vector3 position = transform.position;
-            transform.position = new Vector3(position.x + (_xDirection * speed), position.y  + (_yDirection * speed), position.z);
+            transform.position = new Vector3(position.x + (_xDirection * modifiedSpeed), position.y  + (_yDirection * modifiedSpeed), position.z);
         }
         
         private void OnTriggerEnter2D(Collider2D col)
