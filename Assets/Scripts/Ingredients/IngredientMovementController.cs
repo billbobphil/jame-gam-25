@@ -13,6 +13,7 @@ namespace Ingredients
         private void OnEnable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame += Pause;
+            GameManager.OnGameOver += EndGame;
             MiniGameController.OnEndMiniGame += Resume;
         }
 
@@ -20,9 +21,15 @@ namespace Ingredients
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame -= Pause;
             MiniGameController.OnEndMiniGame -= Resume;
+            GameManager.OnGameOver -= EndGame;
         }
         
         private void Pause(GameObject ingredient)
+        {
+            _isPaused = true;
+        }
+
+        private void EndGame()
         {
             _isPaused = true;
         }

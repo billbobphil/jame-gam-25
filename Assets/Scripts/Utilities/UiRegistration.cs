@@ -10,6 +10,8 @@ namespace Utilities
         public GameObject gameCanvas;
         public GameObject timerText;
         public GameObject gameEndCanvas;
+        public GameObject victoryPanel;
+        public GameObject defeatPanel;
         public GameObject collectionAndModifierPanel;
         public TextMeshProUGUI modifierText;
         public TextMeshProUGUI collectedIngredientText;
@@ -23,6 +25,8 @@ namespace Utilities
         private void Start()
         {
             miniGameCanvas.SetActive(false);
+            victoryPanel.SetActive(false);
+            defeatPanel.SetActive(false);
             gameEndCanvas.SetActive(false);
             collectionAndModifierPanel.SetActive(false);
         }

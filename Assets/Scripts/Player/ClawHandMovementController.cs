@@ -17,18 +17,25 @@ namespace Player
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame += Pause;
             MiniGameController.OnEndMiniGame += Resume;
+            GameManager.OnGameOver += EndGame;
         }
 
         private void OnDisable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame -= Pause;
             MiniGameController.OnEndMiniGame -= Resume;
+            GameManager.OnGameOver -= EndGame;
         }
         
         private void Pause(GameObject ingredient)
         {
             _isPaused = true;
-        } 
+        }
+
+        private void EndGame()
+        {
+            _isPaused = true;
+        }
         
         private void Resume(GameObject ingredient)
         {

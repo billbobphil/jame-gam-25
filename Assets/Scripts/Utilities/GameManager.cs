@@ -20,6 +20,9 @@ namespace Utilities
         private bool _hasWonGame;
         private bool _hasLostGame;
         
+        public delegate void GameOver();
+        public static event GameOver OnGameOver;
+        
 
         private readonly List<int> _orbitDistances = new()
         {
@@ -57,8 +60,12 @@ namespace Utilities
 
             if (minutesRemaining == 0 && secondsRemaining == 0)
             {   
-                Debug.Log("Trigger Game Over State");
+                uiRegistration.gameCanvas.SetActive(false);
+                uiRegistration.miniGameCanvas.SetActive(false);
+                uiRegistration.gameEndCanvas.SetActive(true);
+                uiRegistration.defeatPanel.SetActive(true);
                 _hasLostGame = true;
+                OnGameOver?.Invoke();
             }
         }
 
@@ -68,8 +75,12 @@ namespace Utilities
             
             if (Ingredients.All(item => item.isCollected))
             {
-                Debug.Log("Trigger Win State All Ingredients Used");
+                uiRegistration.gameCanvas.SetActive(false);
+                uiRegistration.miniGameCanvas.SetActive(false);
+                uiRegistration.gameEndCanvas.SetActive(true);
+                uiRegistration.victoryPanel.SetActive(true);
                 _hasWonGame = true;
+                OnGameOver?.Invoke();
             }
         }
 
