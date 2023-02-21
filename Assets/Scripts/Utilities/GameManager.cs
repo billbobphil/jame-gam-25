@@ -84,15 +84,34 @@ namespace Utilities
 
         private IEnumerator UpdateTextForGatheredIngredients(IngredientController.IngredientType ingredientType, CollectionModifierController.IngredientCollectionModifiers modifier)
         {
-            string ingredientTypeText = ingredientType switch
+            string ingredientTypeText = "";
+            
+            switch (ingredientType)
             {
-                IngredientController.IngredientType.Chicken => "Chicken collected!",
-                IngredientController.IngredientType.Butter => "Butter collected!",
-                IngredientController.IngredientType.Tomato => "Tomato collected!",
-                IngredientController.IngredientType.Garlic => "Garlic collected!",
-                IngredientController.IngredientType.Onion => "Onion collected!",
-                IngredientController.IngredientType.Cream => "Cream collected!",
-                _ => ""
+                case IngredientController.IngredientType.Chicken:
+                    ingredientTypeText = "Chicken collected!";
+                    uiRegistration.collectedChickenText.text = "1";
+                    break;
+                case IngredientController.IngredientType.Butter:
+                    ingredientTypeText = "Butter collected!";
+                    uiRegistration.collectedButterText.text = "1";
+                    break;
+                case IngredientController.IngredientType.Cream:
+                    ingredientTypeText = "Cream collected!";
+                    uiRegistration.collectedCreamText.text = "1";
+                    break;
+                case IngredientController.IngredientType.Garlic:
+                    ingredientTypeText = "Garlic collected!";
+                    uiRegistration.collectedGarlicText.text = "1";
+                    break;
+                case IngredientController.IngredientType.Onion:
+                    ingredientTypeText = "Onion collected!";
+                    uiRegistration.collectedOnionText.text = "1";
+                    break;
+                case IngredientController.IngredientType.Tomato:
+                    ingredientTypeText = "Tomato collected!";
+                    uiRegistration.collectedTomatoText.text = "1";
+                    break;
             };
 
             string modifierText = modifier switch
