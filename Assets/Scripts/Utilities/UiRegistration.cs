@@ -21,6 +21,7 @@ namespace Utilities
         public TextMeshProUGUI collectedGarlicText;
         public TextMeshProUGUI collectedOnionText;
         public TextMeshProUGUI collectedCreamText;
+        public TextMeshProUGUI endGameVictoryTimeRemainingText;
 
         private void Start()
         {

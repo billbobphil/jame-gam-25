@@ -19,6 +19,8 @@ namespace Utilities
 
         private bool _hasWonGame;
         private bool _hasLostGame;
+        private int _lastMinutesCollected;
+        private int _lastSecondsCollected;
         
         public delegate void GameOver();
         public static event GameOver OnGameOver;
@@ -34,6 +36,17 @@ namespace Utilities
             1, 1.5f, 2, 2.5f, 3, 3.5f
         };
 
+        private void Awake()
+        {
+            timer.startTime = Difficulty.GetDifficultyLevel() switch
+            {
+                Difficulty.DifficultyLevel.Easy => 60,
+                Difficulty.DifficultyLevel.Normal => 45,
+                Difficulty.DifficultyLevel.Hard => 30,
+                _ => timer.startTime
+            };
+        }
+        
         private void Start()
         {
             timer.StartTimer();
@@ -57,9 +70,13 @@ namespace Utilities
             if (_hasLostGame || _hasWonGame) return;
             
             uiRegistration.timerText.GetComponent<TextMeshProUGUI>().text = $"{minutesRemaining:00}:{secondsRemaining:00}";
+            
+            _lastMinutesCollected = minutesRemaining;
+            _lastSecondsCollected = secondsRemaining;
 
             if (minutesRemaining == 0 && secondsRemaining == 0)
             {   
+                timer.PauseTimer();
                 uiRegistration.gameCanvas.SetActive(false);
                 uiRegistration.miniGameCanvas.SetActive(false);
                 uiRegistration.gameEndCanvas.SetActive(true);
@@ -75,11 +92,13 @@ namespace Utilities
             
             if (Ingredients.All(item => item.isCollected))
             {
+                timer.PauseTimer();
                 uiRegistration.gameCanvas.SetActive(false);
                 uiRegistration.miniGameCanvas.SetActive(false);
                 uiRegistration.gameEndCanvas.SetActive(true);
                 uiRegistration.victoryPanel.SetActive(true);
                 _hasWonGame = true;
+                uiRegistration.endGameVictoryTimeRemainingText.text = $"{_lastMinutesCollected:00}:{_lastSecondsCollected:00}";
                 OnGameOver?.Invoke();
             }
         }

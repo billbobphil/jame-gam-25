@@ -14,6 +14,11 @@ namespace Utilities
         
         private float _timeRemaining = 30;
 
+        private void Start()
+        {
+            _timeRemaining = startTime;
+        }
+
         public void StartTimer()
         {
             isTimerRunning = true;
