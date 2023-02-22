@@ -55,10 +55,10 @@ namespace Utilities
                     claw.transform.localScale = new Vector3(claw.transform.localScale.x * 0.65f, claw.transform.localScale.y * 0.65f, claw.transform.localScale.z);
                     break;
                 case IngredientCollectionModifiers.SpeedUp:
-                    currentClawHandSpeed += 1;
+                    currentClawHandSpeed = _startingClawHandSpeed * 1.5f;
                     break;
                 case IngredientCollectionModifiers.SpeedDown:
-                    currentClawHandSpeed -= .5f;
+                    currentClawHandSpeed = _startingClawHandSpeed * .5f;
                     break;
                 case IngredientCollectionModifiers.OrbitSpeedUp:
                     foreach ((bool isCollected, GameObject ingredient, IngredientCollectionModifiers modifier) item in gameManager.Ingredients)

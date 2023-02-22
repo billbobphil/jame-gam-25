@@ -49,12 +49,12 @@ namespace Player
         {
             if (_isPaused || !allowRotatorMovement) return;
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 rotator.MoveOrbiteeInOrbit(Rotator.Direction.Clockwise);
             }
    
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 rotator.MoveOrbiteeInOrbit(Rotator.Direction.CounterClockwise);
             }

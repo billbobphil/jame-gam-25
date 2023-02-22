@@ -35,10 +35,7 @@ namespace Utilities
         };
 
         public UiRegistration uiRegistration;
-        public GameObject upArrowPrefab;
-        public GameObject downArrowPrefab;
-        public GameObject leftArrowPrefab;
-        public GameObject rightArrowPrefab;
+        public GameObject arrowPrefab;
         private List<(ArrowDirections direction, GameObject arrow)> _sequence;
         private bool _allowInput;
         private int _currentArrowIndex;
@@ -96,7 +93,7 @@ namespace Utilities
 
         private void ProcessArrowSuccess()
         {
-            _sequence[_currentArrowIndex].arrow.GetComponent<TextMeshProUGUI>().color = Color.green;
+            _sequence[_currentArrowIndex].arrow.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
             gameManager.soundEffectPlayer.PlayClip(gameManager.soundEffectRegistration.successArrowSoundEffect, .5f);
            
             if (_sequence.Count - 1 != _currentArrowIndex)
@@ -116,14 +113,14 @@ namespace Utilities
             
             for (int i = 0; i <= _currentArrowIndex; i++)
             {
-                _sequence[i].arrow.GetComponent<TextMeshProUGUI>().color = Color.red;
+                _sequence[i].arrow.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
             }
 
             yield return new WaitForSecondsRealtime(1);
             
             for (int i = 0; i <= _currentArrowIndex; i++)
             {
-                _sequence[i].arrow.GetComponent<TextMeshProUGUI>().color = Color.white;
+                _sequence[i].arrow.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
             }
 
             _currentArrowIndex = 0;
@@ -142,24 +139,27 @@ namespace Utilities
         {
             int sequenceLength = baseArrowCount + gameManager.GetNumberOfIngredientsCollected();
             const int baseXPosition = -390;
-            const int arrowWidth = 101;
+            const int arrowWidth = 115;
             _sequence = new List<(ArrowDirections direction, GameObject arrow)>();
 
             for (int i = 0; i < sequenceLength; i++)
             {
                 int randomDirection = UnityEngine.Random.Range(0, 4);
                 ArrowDirections direction = (ArrowDirections) randomDirection;
-
-                GameObject arrow = direction switch
+                
+                GameObject arrow = Instantiate(arrowPrefab, uiRegistration.sequencePanel.transform);
+                
+                float rotation = direction switch
                 {
-                    ArrowDirections.Up => Instantiate(upArrowPrefab, uiRegistration.sequencePanel.transform),
-                    ArrowDirections.Down => Instantiate(downArrowPrefab, uiRegistration.sequencePanel.transform),
-                    ArrowDirections.Left => Instantiate(leftArrowPrefab, uiRegistration.sequencePanel.transform),
-                    ArrowDirections.Right => Instantiate(rightArrowPrefab, uiRegistration.sequencePanel.transform),
-                    _ => Instantiate(upArrowPrefab, uiRegistration.sequencePanel.transform)
+                    ArrowDirections.Up => 0,
+                    ArrowDirections.Down => 180,
+                    ArrowDirections.Left => 90,
+                    ArrowDirections.Right => 270,
+                    _ => 0
                 };
 
                 arrow.transform.localPosition = new Vector3(baseXPosition + (arrowWidth * i), 0, 0);
+                arrow.transform.localRotation = Quaternion.Euler(0, 0, rotation);
 
                 _sequence.Add((direction, arrow));
             }

@@ -82,6 +82,7 @@ namespace Utilities
                 uiRegistration.gameCanvas.SetActive(false);
                 uiRegistration.miniGameCanvas.SetActive(false);
                 uiRegistration.gameEndCanvas.SetActive(true);
+                uiRegistration.defeatDifficultyText.text = Difficulty.GetDifficultyLevel().ToString();
                 uiRegistration.defeatPanel.SetActive(true);
                 _hasLostGame = true;
                 OnGameOver?.Invoke();
@@ -100,6 +101,7 @@ namespace Utilities
                 uiRegistration.miniGameCanvas.SetActive(false);
                 uiRegistration.gameEndCanvas.SetActive(true);
                 uiRegistration.victoryPanel.SetActive(true);
+                uiRegistration.victoryDifficultyText.text = Difficulty.GetDifficultyLevel().ToString();
                 _hasWonGame = true;
                 uiRegistration.endGameVictoryTimeRemainingText.text = $"{_lastMinutesCollected:00}:{_lastSecondsCollected:00}";
                 OnGameOver?.Invoke();
@@ -123,37 +125,37 @@ namespace Utilities
             switch (ingredientType)
             {
                 case IngredientController.IngredientType.Chicken:
-                    ingredientTypeText = "Chicken collected!";
+                    ingredientTypeText = "Chicken cooked!";
                     uiRegistration.collectedChickenText.text = "1";
                     break;
                 case IngredientController.IngredientType.Butter:
-                    ingredientTypeText = "Butter collected!";
+                    ingredientTypeText = "Butter melted!";
                     uiRegistration.collectedButterText.text = "1";
                     break;
                 case IngredientController.IngredientType.Cream:
-                    ingredientTypeText = "Cream collected!";
+                    ingredientTypeText = "Cream stirred in!";
                     uiRegistration.collectedCreamText.text = "1";
                     break;
                 case IngredientController.IngredientType.Garlic:
-                    ingredientTypeText = "Garlic collected!";
+                    ingredientTypeText = "Garlic minced!";
                     uiRegistration.collectedGarlicText.text = "1";
                     break;
                 case IngredientController.IngredientType.Onion:
-                    ingredientTypeText = "Onion collected!";
+                    ingredientTypeText = "Onion diced!";
                     uiRegistration.collectedOnionText.text = "1";
                     break;
                 case IngredientController.IngredientType.Tomato:
-                    ingredientTypeText = "Tomato collected!";
+                    ingredientTypeText = "Tomato crushed!";
                     uiRegistration.collectedTomatoText.text = "1";
                     break;
             };
 
             string modifierText = modifier switch
             {
-                CollectionModifierController.IngredientCollectionModifiers.SizeUp => "Claw size up!",
-                CollectionModifierController.IngredientCollectionModifiers.SizeDown => "Claw size down!",
-                CollectionModifierController.IngredientCollectionModifiers.SpeedUp => "Claw speed up!",
-                CollectionModifierController.IngredientCollectionModifiers.SpeedDown => "Claw speed down!",
+                CollectionModifierController.IngredientCollectionModifiers.SizeUp => "Pan size up!",
+                CollectionModifierController.IngredientCollectionModifiers.SizeDown => "Pan size down!",
+                CollectionModifierController.IngredientCollectionModifiers.SpeedUp => "Pan speed up!",
+                CollectionModifierController.IngredientCollectionModifiers.SpeedDown => "Pan speed down!",
                 CollectionModifierController.IngredientCollectionModifiers.OrbitSpeedDown => "Ingredient orbit speed down!",
                 CollectionModifierController.IngredientCollectionModifiers.OrbitSpeedUp => "Ingredient orbit speed up!",
                 _ => ""
