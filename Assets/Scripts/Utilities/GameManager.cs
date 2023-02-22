@@ -30,7 +30,7 @@ namespace Utilities
 
         private readonly List<int> _orbitDistances = new()
         {
-            3, 5, 7, 9, 11, 13
+            8, 12, 16, 20, 23, 26
         };
 
         private readonly List<float> _orbitSpeeds = new()

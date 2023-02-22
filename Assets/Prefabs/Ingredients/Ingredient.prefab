@@ -106,7 +106,7 @@ MonoBehaviour:
   orbiter: {fileID: 4227990347032684964}
   distanceBetweenOrbiterAndOrbitee: 12
   degreesToMove: 0.5
-  shouldRotateToCompensate: 1
+  shouldRotateToCompensate: 0
   isParentChildRelationship: 0
   shouldStartAtCenter: 0
 --- !u!114 &4227990347032684960
@@ -194,3 +194,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2634b06f800a664da8e0f7535bf79b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientType: 0

@@ -13,11 +13,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4227990347032684961, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4227990347032684961, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4227990347032684961, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,12 +60,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4227990347032684962, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6bcf21e73fcccfa4aa89b9507aa3299c, type: 3}
+    - target: {fileID: 4227990347032684962, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4227990347032684962, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4227990347032684962, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
       propertyPath: m_Color.r
@@ -74,6 +78,30 @@ PrefabInstance:
     - target: {fileID: 4227990347032684964, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
       propertyPath: m_Name
       value: Tomato
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227990347032685022, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
+      propertyPath: m_Size.x
+      value: 1.509585
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227990347032685022, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
+      propertyPath: m_Size.y
+      value: 1.474348
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227990347032685022, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.02710551
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227990347032685022, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0040658116
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227990347032685022, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227990347032685022, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6769458372924980811, guid: 29c26318c9d0c0f40ac0ff0dd22f93d1, type: 3}
       propertyPath: ingredientType
