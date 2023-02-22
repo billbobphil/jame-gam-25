@@ -13,6 +13,8 @@ namespace Utilities
         public UiRegistration uiRegistration;
         public Timer timer;
         public CollectionModifierController collectionModifierController;
+        public SoundEffectRegistration soundEffectRegistration;
+        public SoundEffectPlayerController soundEffectPlayer;
 
         public List<GameObject> ingredientPrefabs;
         public List<(bool isCollected, GameObject ingredient, CollectionModifierController.IngredientCollectionModifiers modifier)> Ingredients;
@@ -83,6 +85,7 @@ namespace Utilities
                 uiRegistration.defeatPanel.SetActive(true);
                 _hasLostGame = true;
                 OnGameOver?.Invoke();
+                soundEffectPlayer.PlayClip(soundEffectRegistration.gameOverSoundEffect);
             }
         }
 
@@ -100,6 +103,7 @@ namespace Utilities
                 _hasWonGame = true;
                 uiRegistration.endGameVictoryTimeRemainingText.text = $"{_lastMinutesCollected:00}:{_lastSecondsCollected:00}";
                 OnGameOver?.Invoke();
+                soundEffectPlayer.PlayClip(soundEffectRegistration.victorySoundEffect);
             }
         }
 

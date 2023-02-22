@@ -14,6 +14,7 @@ namespace Player
         private bool _canCreateClaw = true;
         private bool _isPaused = false;
         public CollectionModifierController collectionModifierController;
+        public GameManager gameManager;
 
         private void OnEnable()
         {
@@ -40,6 +41,7 @@ namespace Player
                 GameObject clawHand = Instantiate(clawHandPrefab, claw.transform.position, claw.transform.rotation);
                 clawHand.transform.localScale = claw.transform.localScale * 1.5f;
                 clawHand.GetComponent<ClawHandMovementController>().manager = this;
+                gameManager.soundEffectPlayer.PlayClip(gameManager.soundEffectRegistration.shootClawSoundEffect);
             }
         }
         

@@ -52,11 +52,18 @@ namespace Utilities
         private void OnEnable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame += StartMiniGame;
+            GameManager.OnGameOver += PreventInput;
         }
 
         private void OnDisable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame -= StartMiniGame;
+            GameManager.OnGameOver -= PreventInput;
+        }
+
+        private void PreventInput()
+        {
+            _allowInput = false;
         }
 
         private void StartMiniGame(GameObject ingredient)
@@ -90,6 +97,7 @@ namespace Utilities
         private void ProcessArrowSuccess()
         {
             _sequence[_currentArrowIndex].arrow.GetComponent<TextMeshProUGUI>().color = Color.green;
+            gameManager.soundEffectPlayer.PlayClip(gameManager.soundEffectRegistration.successArrowSoundEffect, .5f);
            
             if (_sequence.Count - 1 != _currentArrowIndex)
             {
@@ -104,6 +112,7 @@ namespace Utilities
         private IEnumerator ProcessArrowFailure()
         {
             _allowInput = false;
+            gameManager.soundEffectPlayer.PlayClip(gameManager.soundEffectRegistration.failArrowSoundEffect);
             
             for (int i = 0; i <= _currentArrowIndex; i++)
             {
@@ -123,6 +132,7 @@ namespace Utilities
 
         private void ProcessGameWin()
         {
+            gameManager.soundEffectPlayer.PlayClip(gameManager.soundEffectRegistration.collectIngredientSoundEffect);
             uiRegistration.miniGameCanvas.SetActive(false);
             OnEndMiniGame?.Invoke(_ingredientBeingPlayedFor);
             ResetMiniGame();

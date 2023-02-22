@@ -63,6 +63,7 @@ namespace Player
         {
             if (col.CompareTag("Ingredient"))
             {
+                manager.gameManager.soundEffectPlayer.PlayClip(manager.gameManager.soundEffectRegistration.clawHitSoundEffect);
                 DestroyClawHand();
             }
         }

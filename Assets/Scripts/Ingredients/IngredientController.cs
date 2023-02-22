@@ -18,7 +18,6 @@ namespace Ingredients
         
         public void CollectIngredient()
         {
-            //TODO: Add sound effects etc.
             gameObject.SetActive(false);
         }
     }
