@@ -23,6 +23,8 @@ namespace Utilities
         private bool _hasLostGame;
         private int _lastMinutesCollected;
         private int _lastSecondsCollected;
+
+        public bool isTutorial;
         
         public delegate void GameOver();
         public static event GameOver OnGameOver;
@@ -51,8 +53,14 @@ namespace Utilities
         
         private void Start()
         {
+            if (isTutorial)
+            {
+                timer.PauseTimer();
+                return;
+            }
+            
             timer.StartTimer();
-            SpawnIngredients();
+            SpawnIngredients();    
         }
         
         private void OnEnable()
@@ -94,7 +102,7 @@ namespace Utilities
         {
             if (_hasWonGame || _hasLostGame) return;
             
-            if (Ingredients.All(item => item.isCollected))
+            if (Ingredients != null && Ingredients.All(item => item.isCollected))
             {
                 timer.PauseTimer();
                 uiRegistration.gameCanvas.SetActive(false);
@@ -168,7 +176,7 @@ namespace Utilities
             uiRegistration.collectionAndModifierPanel.SetActive(false);
         }
 
-        private void SpawnIngredients()
+        public void SpawnIngredients()
         {
             Ingredients = new List<(bool, GameObject, CollectionModifierController.IngredientCollectionModifiers)>();
 

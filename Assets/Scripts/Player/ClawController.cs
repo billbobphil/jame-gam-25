@@ -1,5 +1,6 @@
 using System;
 using Ingredients;
+using Tutorial;
 using UnityEngine;
 using Utilities;
 
@@ -21,6 +22,8 @@ namespace Player
             IngredientMiniGameEventNotifier.OnStartMiniGame += Pause;
             MiniGameController.OnEndMiniGame += Resume;
             GameManager.OnGameOver += EndGame;
+            TutorialController.OnTutorialBlockActions += PauseForTutorial;
+            TutorialController.OnTutorialUnblockActions += ResumeForTutorial;
         }
 
         private void OnDisable()
@@ -28,6 +31,8 @@ namespace Player
             IngredientMiniGameEventNotifier.OnStartMiniGame -= Pause;
             MiniGameController.OnEndMiniGame -= Resume;
             GameManager.OnGameOver -= EndGame;
+            TutorialController.OnTutorialBlockActions -= PauseForTutorial;
+            TutorialController.OnTutorialUnblockActions -= ResumeForTutorial;
         }
 
         private void Update()
@@ -77,6 +82,16 @@ namespace Player
         }
 
         private void Resume(GameObject ingredient)
+        {
+            _isPaused = false;
+        }
+
+        private void PauseForTutorial()
+        {
+            _isPaused = true;
+        }
+
+        private void ResumeForTutorial()
         {
             _isPaused = false;
         }

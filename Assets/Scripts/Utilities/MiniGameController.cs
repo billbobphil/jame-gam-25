@@ -50,17 +50,26 @@ namespace Utilities
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame += StartMiniGame;
             GameManager.OnGameOver += PreventInput;
+            Tutorial.TutorialController.OnTutorialBlockMiniGame += PreventInput;
+            Tutorial.TutorialController.OnTutorialUnblockMiniGame += AllowInput;
         }
 
         private void OnDisable()
         {
             IngredientMiniGameEventNotifier.OnStartMiniGame -= StartMiniGame;
             GameManager.OnGameOver -= PreventInput;
+            Tutorial.TutorialController.OnTutorialBlockMiniGame -= PreventInput;
+            Tutorial.TutorialController.OnTutorialUnblockMiniGame -= AllowInput;
         }
 
         private void PreventInput()
         {
             _allowInput = false;
+        }
+
+        private void AllowInput()
+        {
+            _allowInput = true;
         }
 
         private void StartMiniGame(GameObject ingredient)
